@@ -1,0 +1,29 @@
+<h1>Items#new</h1>
+<p>Find me in app/views/items/new.html.erb</p>
+
+
+<%= form_with model: @item, local: true do |form| %>
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+   
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+
+    <p>
+      <%= form.label :price %><br>
+      <%= form.text_area :price %>
+    </p>
+
+    <p>
+      <%= form.label :serial_no %><br>
+      <%= form.text_area :serial_no %>
+    </p>
+   
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
