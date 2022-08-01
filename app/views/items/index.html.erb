@@ -1,13 +1,20 @@
-<h1>Items#index</h1>
-<p>Find me in app/views/items/index.html.erb</p>
-<%= link_to "Sign out",
+<% if current_user %>
+    <%= link_to "Sign out",
     destroy_user_session_path, method: :delete%>
+    <p> <%= link_to "Edit",edit_user_registration_path %> </p>
+    </br>
+    <%= image_tag(current_user.avatar_thumbnail) if current_user.avatar.attached?%>
+<%else%>
+<p> <%= link_to "Sign in",new_user_session_path %> </p>
+<p> <%= link_to "Sign up",new_user_registration_path%> </p>
+<%end%>
 <h2>For adding new Item</h2>
 <%=link_to 'new Item',new_item_path%>
 <% @items.each do |item| %>
     <br>
     <%= item.id %>
   <%=link_to item.title, item_path(item)%>
+    <%= image_tag(item.avatar, style:'width:10%') if item.avatar.attached?%>
   <%if user_signed_in?%>
     <% if item.user.id == current_user.id %>
       <%=link_to 'edit', edit_item_path(item)%>
