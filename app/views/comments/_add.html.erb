@@ -1,0 +1,8 @@
+<%= form_with model: [ @item, @item.comments.build ],
+local: true do |f| %>
+      <%= f.text_area :description %> 
+      <%= f.hidden_field :user_id, value: current_user.id%>
+      <%= f.hidden_field :item_id, value: @item.id%>
+      <%= f.submit%>  
+<% end %>
+    
