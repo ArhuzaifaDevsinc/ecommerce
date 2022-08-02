@@ -1,13 +1,28 @@
-<h1>Items#new</h1>
-<p>Find me in app/views/items/new.html.erb</p>
 
 
 <%= form_with model: @item, local: true do |form| %>
-    <p>
+    
+  <% if @item.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@item.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <p>
       <%= form.label :title %><br>
       <%= form.text_field :title %>
     </p>
-   
+    <p>
+      <%= form.label :images %><br>
+      <%= form.file_field :images, multiple: true %>
+    </p>
     <p>
       <%= form.label :description %><br>
       <%= form.text_area :description %>

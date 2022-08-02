@@ -4,8 +4,8 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <% if resource.avatar.attached? %>
-    <%= image_tag(resource.avatar) %>
+    <% if resource.image.attached? %>
+    <%= image_tag(resource.image) %>
     <%else%>
     <%= image_tag("/default_profile.jpg")%>
     <%end%>

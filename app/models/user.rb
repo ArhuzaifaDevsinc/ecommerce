@@ -6,19 +6,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :items, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_one_attached :avatar
-  after_commit :add_default_avatar, only: [:create, :update]
-  def avatar_thumbnail
-    if avatar.attached?
-      avatar.variant(resize: "200x200").processed 
+  has_one_attached :image
+  after_commit :add_default_image, only: [:create, :update]
+  def image_thumbnail
+    if image.attached?
+      image.variant(resize: "200x200").processed 
     else
       '/default_profile.jpg'
     end
   end
   private
-  def add_default_avatar
-    unless avatar.attached?
-      avatar.attach(
+  def add_default_image
+    unless image.attached?
+      image.attach(
         io: File.open(
           Rails.root.join(
             'app','assets','images','default_profile.jpg'

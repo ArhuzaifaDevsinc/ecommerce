@@ -3,7 +3,8 @@
 <%=@item.description%>
 <%= render @item.comments%>
 <% if user_signed_in? %>
-      <%= render 'comments/add' %>
+  <% unless @item.user.id == current_user.id %>
+    <%= render 'comments/add' %>
+  <% end %>
 <% end %>
 <%=link_to 'Back to home', items_path%>
-<h1>hdsajhdsv</h
