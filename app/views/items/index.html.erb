@@ -10,11 +10,40 @@
 <%end%>
 <h2>For adding new Item</h2>
 <%=link_to 'new Item',new_item_path%>
+<details>
+<summary> Shopping cart </summary>
+<%if @cart.empty?%>
+<p> No items in cart </p>
+<%else%>
+<ul>
+    <% @cart.each do |item| %>
+    <li>
+       <%=item.title%>
+       <%=item.price%> 
+       <%=link_to '+', line_item_add_item_path(item)%>
+       <%= @quantity %>
+       <%=link_to '-', line_item_reduce_item_path(item)%>
+       <p><%= button_to 'remove from cart',remove_from_cart_item_path(item) ,method: :delete%></p>
+    </li>
+    <%end%>
+  </ul>
+  <p><%= button_to 'checkout',root_path, method: :get%> </p>
+<%end%>
+</details>
 <% @items.each do |item| %>
     <br>
     <%= item.id %>
-    <%=  @visit_count %>
   <%=link_to item.title, item_path(item)%>
+      <% if @cart.include?(item) %>
+          <p>item is in your cart</p>
+        <%else%>
+          <p><%= link_to 'add to cart',add_to_cart_item_path(item.id),method: :post%></p>
+          <% if flash[:errors] %>
+            <div class="notice"><%= flash[:errors] %></div>
+          <% end %>
+        <%end%>
+   
+
   <div >
   <% (0...item.images.count).each do |image|%>
     <%= image_tag(item.thumbnail(image))%>
@@ -25,9 +54,9 @@
       <%=link_to 'edit', edit_item_path(item)%>
       <%=link_to 'delete', item_path(item),
        method: :delete,
-       data: { confirm: "Are you sure you want delete this item? "}%>
-
-    <%end%>    
+       data: { confirm: "Are you sure you want delete this item? "}%> 
+      
+    <%end%>
   <%end%>
   <br>
 <%end%>
