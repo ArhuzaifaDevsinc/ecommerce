@@ -2,6 +2,9 @@ class ItemsController < ApplicationController
   before_action :fetch_id, only: [:show, :edit, :update, :destroy]
   def index
     @items = Item.all
+    session[:visit_count] ||= 0
+    session[:visit_count] += 1
+    @visit_count = session[:visit_count]
   end
 
   def new

@@ -13,6 +13,7 @@
 <% @items.each do |item| %>
     <br>
     <%= item.id %>
+    <%=  @visit_count %>
   <%=link_to item.title, item_path(item)%>
   <div >
   <% (0...item.images.count).each do |image|%>
