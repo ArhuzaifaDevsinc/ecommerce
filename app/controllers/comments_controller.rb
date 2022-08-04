@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    authorize @comment
   end
 
   def update
@@ -24,12 +25,12 @@ class CommentsController < ApplicationController
     redirect_to item_path(@comment.item.id)
   end
   def fetch_comment_id
-   
-    @comment=Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
-  private
-    def comment_params
-      params.require(:comment).permit(:description, :user_id)
-    end
-end
 
+  private
+
+  def comment_params
+    params.require(:comment).permit(:description, :user_id)
+  end
+end
