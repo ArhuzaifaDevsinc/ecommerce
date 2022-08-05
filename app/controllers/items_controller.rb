@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :fetch_id, only: [:show, :edit, :update, :destroy]
+  before_action :fetch_item, only: [:show, :edit, :update, :destroy]
   before_action :delete_item_from_session, only: [:destroy]
  
 
@@ -43,11 +43,10 @@ class ItemsController < ApplicationController
   private
 
   def delete_item_from_session
-    id = params[:id].to_i
-    session[:cart].delete(id)
+    session[:cart].delete(params[:id])
   end
 
-  def fetch_id
+  def fetch_item
     @item = Item.find(params[:id])
   end
 
