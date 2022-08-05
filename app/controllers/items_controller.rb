@@ -84,8 +84,7 @@ class ItemsController < ApplicationController
   private
 
   def delete_item_from_session
-    id = params[:id].to_i
-    session[:cart].delete(id)
+    session[:cart].delete(params[:id])
   end
 
   def fetch_id

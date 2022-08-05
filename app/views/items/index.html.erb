@@ -10,26 +10,6 @@
 <%end%>
 <h2>For adding new Item</h2>
 <%=link_to 'new Item',new_item_path%>
-<details>
-<summary> Shopping cart </summary>
-<%if @cart.empty?%>
-<p> No items in cart </p>
-<%else%>
-<ul>
-    <% @cart.each do |item| %>
-    <li>
-       <%=item.title%>
-       <%=item.price%> 
-       <%=link_to '+', line_item_add_item_path(item)%>
-       <%= @quantity %>
-       <%=link_to '-', line_item_reduce_item_path(item)%>
-       <p><%= button_to 'remove from cart',remove_from_cart_item_path(item) ,method: :delete%></p>
-    </li>
-    <%end%>
-  </ul>
-  <p><%= button_to 'checkout',root_path, method: :get%> </p>
-<%end%>
-</details>
 <% @items.each do |item| %>
     <br>
     <%= item.id %>
