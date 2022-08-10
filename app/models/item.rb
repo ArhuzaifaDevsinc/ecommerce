@@ -17,5 +17,5 @@ class Item < ApplicationRecord
         errors.add(:images,' format must be JPEG or PNG')
       end
     end
-  end
+  end 
 end

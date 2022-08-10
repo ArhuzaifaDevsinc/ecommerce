@@ -32,6 +32,7 @@ gem 'devise'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'pg'
 gem 'yaml_db'
+gem 'paypal-sdk-rest'
 # Use ActiveStorage variant
   gem 'mini_magick', '~> 4.8'
   gem 'image_processing', '~> 1.2'

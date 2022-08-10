@@ -6,7 +6,6 @@ class CartsController < ApplicationController
   end
 
   def remove_from
-        # delete_item_from_session
     return if params[:id].nil?
     session[:cart].delete(params[:id])
     redirect_to request.referer
