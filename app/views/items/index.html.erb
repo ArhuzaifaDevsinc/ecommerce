@@ -1,16 +1,6 @@
-<% if current_user %>
-    <%= link_to "Sign out",
-    destroy_user_session_path, method: :delete%>
-    <p> <%= link_to "Edit",edit_user_registration_path %> </p>
-    </br>
-    <%= image_tag(current_user.image_thumbnail) if current_user.image.attached?%>
-<%else%>
-<p> <%= link_to "Sign in",new_user_session_path %> </p>
-<p> <%= link_to "Sign up",new_user_registration_path%> </p>
-<%end%>
+
 <h2>For adding new Item</h2>
 <%=link_to 'new Item',new_item_path%>
-
 <% @items.each do |item| %>
     <br>
     <%= item.id %>

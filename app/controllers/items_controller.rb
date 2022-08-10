@@ -2,9 +2,13 @@ class ItemsController < ApplicationController
   before_action :fetch_item, only: [:show, :edit, :update, :destroy]
   before_action :delete_item_from_session, only: [:destroy]
  
-
   def index
     @items = Item.all
+  end
+
+  def search
+    @query = params[:title]
+    @items = Item.where("title LIKE'%#{params[:title]}%'")
   end
 
   def new

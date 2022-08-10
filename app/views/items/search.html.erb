@@ -1,0 +1,41 @@
+<div>
+<form>
+<h1>Items Against Search "<%= @query %>" </h1>
+
+<ul>
+<li>
+<div class="container">
+
+<% @items.each do |item| %>
+    <br>
+    <%= item.id %>
+    <%=link_to item.title, item_path(item)%>
+    <% if @cart.include?(item) %>
+        <p>item is in your cart</p>
+    <%else%>
+        <p><%= link_to 'add to cart',add_to_cart_path(item),method: :post%></p>
+        <% if flash[:errors] %>
+          <div class="notice"><%= flash[:errors] %></div>
+        <% end %>
+    <%end%>
+    <div >
+      <% (0...item.images.count).each do |image|%>
+        <%= image_tag(item.thumbnail(image))%>
+      <%end%>
+    </div>
+    <% if user_signed_in?%>
+      <% if item.user.id == current_user.id %>
+        <%=link_to 'edit', edit_item_path(item)%>
+        <%=link_to 'delete', item_path(item),
+          method: :delete,
+          data: { confirm: "Are you sure you want delete this item? "}%> 
+      <%end%>
+    <%end%>
+  <br>
+<%end%>
+
+</div>
+</li>
+</ul>
+<form>
+</div>
