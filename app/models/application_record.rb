@@ -7,7 +7,7 @@ class ApplicationRecord < ActiveRecord::Base
       name: self.title,
       sku: self.id,
       price: self.price,
-      currency: 'MXN',
+      currency: 'JPY',
       quantity: '1'
     }
   end

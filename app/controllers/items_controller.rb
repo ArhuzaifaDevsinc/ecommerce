@@ -8,15 +8,21 @@ class ItemsController < ApplicationController
 
   def search
     @query = params[:title]
-    @items = Item.where("title LIKE'%#{params[:title]}%'")
+    # should use ? with the where clause
+    # @items = Item.where("title LIKE'%#{params[:title]}%'")
+    @items = Item.search(params[:title])
   end
 
   def new
+    unless user_signed_in?
+      redirect_to root_path, alert: 'Please authenticate first to add items as a seller!' and return
+    end
     @item = Item.new
   end
 
   def create
     @item = current_user.items.new(item_params)
+    @item.serial_no = rand(10..99999).to_s
     if @item.save
       redirect_to root_path
     else

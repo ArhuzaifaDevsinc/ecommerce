@@ -17,14 +17,14 @@
         </li>
       </ul>
     </div>
+ 
   <div>
-  <div style="width: 870px;">
-    <%= form_tag search_items_path, method: :get do%>
-    <%= text_field_tag :title, params[:title]%> 
-    <%= submit_tag ("Search") %>
-    <% end %>
-  </div>
+    <div style="width: 870px;">
+      <%= form_with url: search_items_path, method: :get, class: 'nav-link', local: true do |form| %>
+      <%= form.text_field :title, class:"form-control mr-sm-2", style:"width: 90%", placeholder:"Search"%> 
+      <% end %>
     </div>
+  </div>
     <div>
       <ul class="navbar-nav mr-4 mt-2 mt-lg-0 align-items-center">
 

@@ -31,6 +31,7 @@ gem 'devise'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'pg'
+gem 'pg_search'
 gem 'yaml_db'
 gem 'paypal-sdk-rest'
 # Use ActiveStorage variant
