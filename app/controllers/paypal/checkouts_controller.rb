@@ -22,7 +22,7 @@ class Paypal::CheckoutsController < ApplicationController
             total: helpers.cart_total,
             currency: 'JPY'
           },
-          description:'paypal payment transaction description.',
+          description:' CART ITEMS DETAIL.',
           item_list: {
             items: helpers.wrapping_items
           }
