@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       delete 'remove_from'
       put 'update_quantity'
     end
+    collection do
+      get 'show'
+    end
   end
   
   namespace :paypal do

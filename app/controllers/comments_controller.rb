@@ -3,8 +3,8 @@ class CommentsController < ApplicationController
   def create
     @item=Item.find(params[:item_id])
     @comment = @item.comments.create(comment_params)
-    if @item.save
-      redirect_to item_path(@item)
+    unless @item.save
+      redirect_to item_path(@item) ,alert: 'Something went wrong! Please comment again!' and return
     end
   end
 

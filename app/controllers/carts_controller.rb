@@ -24,4 +24,7 @@ class CartsController < ApplicationController
     session[:cart][params[:id].to_i] = params[:quantity]
     redirect_to request.referer
   end
+  
+  def show_
+  end
 end
