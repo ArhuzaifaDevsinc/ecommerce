@@ -1,0 +1,52 @@
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="header">
+          <h4 class="text-center"> SHOPPING CART </h4>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <% if @cart.empty? %>
+        <p class="text-muted mb-4">cart has no items.</p>
+      <%else%>
+        <%i=0%>
+        <% @cart.each do |item| %>
+          <div class="col-md-8 col-lg-6 col-xl-4"> 
+            <div class="card card_height text-black">
+              <img class="card-img-top" alt="Apple Computer"
+              <%= image_tag(item.images.first) if item.images.attached? %> 
+              <div class="card-body">
+                <div class="text-center">
+                  <h5 class="card-title"><%= item.title %></h5>
+                </div>
+                <div>
+                  <div class="d-flex justify-content-between">
+                    <span>Price</span><span><%= item.price %></span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span> Quantity </span><span> <%=@item_quantity[i]%> </span>
+                    <%i+=1%>
+                  </div>
+                </div>
+                <div>
+                  <%= form_tag update_quantity_cart_path(item),method: :put do %>
+                    <label for="quantity">Quantity</label>
+                    <%= text_field_tag :quantity %>
+                    <%= submit_tag "Submit" %>
+                  <% end %>
+                  <p><%= button_to 'remove from cart',remove_from_cart_path(item) ,method: :delete%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+      <%= button_to 'checkout',paypal_checkouts_path, method: :post, class:"btn btn-light"%>
+    </div>
+  </div>
+</section>

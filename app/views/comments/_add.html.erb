@@ -1,8 +1,8 @@
-<%= form_with model: [ @item, @item.comments.build ],
-local: true do |f| %>
-      <%= f.text_area :description %> 
+<%= form_with model: [ @item, @item.comments.build ] do |f| %>
+      <div class="input-group input-group-lg">
+      <%= f.text_area :description, class: "form-control overflow-auto",required:true %> 
       <%= f.hidden_field :user_id, value: current_user.id%>
       <%= f.hidden_field :item_id, value: @item.id%>
-      <%= f.submit%>  
+      <%= f.submit  class: "btn btn-light btn-sm "%>  
 <% end %>
     

@@ -1,23 +1,29 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
-  before_action :fetch_id, only: [:show, :edit, :update, :destroy]
-  before_action :initialize_session
+  before_action :fetch_item, only: %i[show edit update destroy]
   before_action :delete_item_from_session, only: [:destroy]
-  before_action :load_cart
 
   def index
     @items = Item.all
-    # @visit_count =1
-    session[:visit_count] ||= 0
-    session[:visit_count] += 1
-    @visit_count = session[:visit_count]
+  end
+
+  def search
+    @query = params[:title]
+    @items = Item.search(params[:title])
   end
 
   def new
+    unless user_signed_in?
+      redirect_to root_path, alert: 'Please authenticate first to add items as a seller!' and return
+    end
+
     @item = Item.new
   end
 
   def create
     @item = current_user.items.new(item_params)
+    @item.serial_no = rand(10..99_999).to_s
     if @item.save
       redirect_to root_path
     else
@@ -25,10 +31,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit 
+  def edit
+    authorize @item
   end
 
   def update
@@ -44,61 +50,14 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
-  def add_to_cart
-    id = params[:id].to_i
-    @item = Item.find(id)
-    
-    if current_user == @item.user
-      flash[:errors] = "User can't add his own item into cart!"
-      redirect_to root_path
-
-    else
-      session[:cart] << id
-      redirect_to root_path
-    end
-  end
-
-  def remove_from_cart
-    delete_item_from_session
-    redirect_back(fallback_location: root_path)
-  end
-
-  def line_item_add
-    id= session[:quantity]
-    id=id.to_i
-    id += 1
-    session[:quantity] = id
-    @quantity=id
-    redirect_to root_path
-  end
-
-  def line_item_reduce
-    id = session[:quantity]
-    id = id.to_i
-    id -= 1
-    session[:quantity] = id
-    @quantity = id
-    redirect_to root_path
-  end
-
   private
 
   def delete_item_from_session
     session[:cart].delete(params[:id])
   end
 
-  def fetch_id
+  def fetch_item
     @item = Item.find(params[:id])
-  end
-
-  def initialize_session
-    session[:cart] ||= []
-    session[:quantity] ||= 1
-  end
-
-  def load_cart
-    @cart = Item.find(session[:cart])
-    @quantity = session[:quantity]
   end
 
   def item_params

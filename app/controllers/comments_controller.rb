@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
-  before_action :fetch_comment_id, only: [:edit, :update, :destroy]
+  before_action :fetch_comment, only: %i[edit update destroy]
   def create
-    @item=Item.find(params[:item_id])
+    @item = Item.find(params[:item_id])
     @comment = @item.comments.create(comment_params)
-    if @item.save
-      redirect_to item_path(@item)
-    end
+    redirect_to item_path(@item), alert: 'Something went wrong! Please comment again!' and return unless @item.save
   end
 
   def edit
+    authorize @comment
   end
 
   def update
@@ -23,13 +24,14 @@ class CommentsController < ApplicationController
     @comment.destroy
     redirect_to item_path(@comment.item.id)
   end
-  def fetch_comment_id
-   
-    @comment=Comment.find(params[:id])
-  end
-  private
-    def comment_params
-      params.require(:comment).permit(:description, :user_id)
-    end
-end
 
+  private
+
+  def fetch_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def comment_params
+    params.require(:comment).permit(:description, :user_id)
+  end
+end
