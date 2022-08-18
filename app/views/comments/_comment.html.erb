@@ -1,12 +1,29 @@
-<h1> comments are following</h1>
-<br>
-<%= comment.id%>
-<%= comment.description %>
-<% if user_signed_in? %>
-    <% if comment.user.id == current_user.id %>
-        <%=link_to 'Edit', edit_comment_path(comment)%>
-        <%= link_to 'Delete', comment_path(comment),
-        method: :delete,
-        data: {confirm: "you want to delete this comment?"}%>
-    <%end%>
-<%end%>
+    <div class="container mt-2">
+        <div class="col-md-11 pt-0 pr-0">                  
+        <div class="input-group input-group-lg">
+            <span style="height: auto;min-height: 115px;overflow-x: auto;" class="form-control" readonly>
+                <div class="row">
+                    <div class="col-11 pr-0">
+                        <%= raw comment.description %>
+                    </div>
+                    <div class="col-1 p-0">
+                        <%if user_signed_in?%>
+                            <% if comment.user.id == current_user.id %>
+                                <div class="ml-2 d-flex justify-content-around">
+                                    <span>
+                                        <%= link_to '<i class="fas fa-pen-square" style="font-size: 1.2em !important;"></i>'.html_safe, edit_comment_path(comment) %>  
+                                    </span>
+                                    <span>
+                                        <%= link_to '<i class="fas fa-trash-alt ml-1" style="font-size: 1.2em !important;"></i>'.html_safe, comment_path(comment),
+                                        method: :delete, data: { confirm: "Are you sure?" } %>
+                                    </span>
+                                </div>
+                                
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            </span>
+        </div>
+        </div>
+    </div>

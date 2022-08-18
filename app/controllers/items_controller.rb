@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
-  before_action :fetch_item, only: [:show, :edit, :update, :destroy]
+  before_action :fetch_item, only: %i[show edit update destroy]
   before_action :delete_item_from_session, only: [:destroy]
- 
+
   def index
     @items = Item.all
   end
 
   def search
     @query = params[:title]
-    # should use ? with the where clause
-    # @items = Item.where("title LIKE'%#{params[:title]}%'")
     @items = Item.search(params[:title])
   end
 
@@ -17,12 +17,13 @@ class ItemsController < ApplicationController
     unless user_signed_in?
       redirect_to root_path, alert: 'Please authenticate first to add items as a seller!' and return
     end
+
     @item = Item.new
   end
 
   def create
     @item = current_user.items.new(item_params)
-    @item.serial_no = rand(10..99999).to_s
+    @item.serial_no = rand(10..99_999).to_s
     if @item.save
       redirect_to root_path
     else
@@ -30,10 +31,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit 
+  def edit
     authorize @item
   end
 
