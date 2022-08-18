@@ -1,0 +1,27 @@
+<details>
+<summary> Shopping cart </summary>
+<%if @cart.empty?%>
+<p> No items in cart </p>
+<%else%>
+<ul>
+    <%i=0%>
+    <% @cart.each do |item| %>
+    <li>
+       <%=item.title%>
+       <%=item.price%> 
+
+       <p> Quantity: <%=@item_quantity[i]%> </p>
+       <%i+=1%>
+    #    <%=session[:cart]%>
+       <%= form_tag update_quantity_cart_path(item),method: :put do %>
+        <label for="quantity">Quantity</label>
+        <%= text_field_tag :quantity %>
+       <%= submit_tag "Submit" %>
+      <% end %>
+       <p><%= button_to 'remove from cart',remove_from_cart_path(item) ,method: :delete%></p>
+    </li>
+    <%end%>
+  </ul>
+  <p><%= link_to 'checkout',paypal_checkouts_path, method: :post%> </p>
+<%end%>
+</details>
