@@ -1,9 +1,9 @@
 <div class="mt-2"  
     <span>
-        <%= link_to '<i class="fad fa-pen-square" style="font-size: 2em !important;"></i>'.html_safe, edit_item_path(@items) %>  
+        <%= link_to '<i class="fad fa-pen-square" style="font-size: 2em !important;"></i>'.html_safe, edit_item_path(object) %>  
     </span>
     <span>
-        <%= link_to '<i class="fad fa-trash-alt ml-1" style="font-size: 2em !important;"></i>'.html_safe, item_path(@items),
+        <%= link_to '<i class="fad fa-trash-alt ml-1" style="font-size: 2em !important;"></i>'.html_safe, item_path(object),
         method: :delete, data: { confirm: "Are you sure you want delete this item? " } %>
     </span>
 </div> 
