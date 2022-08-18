@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -5,7 +7,7 @@ class CommentPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
-  
+
   def edit?
     @user == @record.user
   end
