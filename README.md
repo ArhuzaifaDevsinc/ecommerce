@@ -1,24 +1,41 @@
-# README
+Install
+Clone the repository
+git clone git@github.com:juliendargelos/project.git
+cd project
+Check your Ruby version
+ruby -v
+The ouput should start with something like ruby 2.5.1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+If not, install the right ruby version using rbenv (it could take a while):
 
-Things you may want to cover:
+rbenv install 2.5.1
+Install dependencies
+Using Bundler and Yarn:
 
-* Ruby version
+bundle && yarn
+Set environment variables
+Using Figaro:
 
-* System dependencies
+See config/application.yml.sample and contact the developer: contact@juliendargelos.com (sensitive data).
 
-* Configuration
+Initialize the database
+rails db:create db:migrate db:seed
+Add heroku remotes
+Using Heroku CLI:
 
-* Database creation
+heroku git:remote -a project
+heroku git:remote --remote heroku-staging -a project-staging
+Serve
+rails s
+Deploy
+With Heroku pipeline (recommended)
+Push to Heroku staging remote:
 
-* Database initialization
+git push heroku-staging
+Go to the Heroku Dashboard and promote the app to production or use Heroku CLI:
 
-* How to run the test suite
+heroku pipelines:promote -a project-staging
+Directly to production (not recommended)
+Push to Heroku production remote:
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+git push heroku
